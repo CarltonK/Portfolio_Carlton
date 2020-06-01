@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/utils/cursor.dart';
@@ -6,8 +8,9 @@ class HeroBtn extends StatefulWidget {
   final title;
   final bool isOutline;
   bool hover = false;
+  final GestureTapCallback callback;
 
-  HeroBtn({this.title, this.isOutline = false});
+  HeroBtn({this.title, this.isOutline = false, this.callback});
 
   @override
   _HeroBtnState createState() => _HeroBtnState();
@@ -22,28 +25,31 @@ class _HeroBtnState extends State<HeroBtn> {
           widget.hover = value;
         });
       },
-      child: Container(
-        width: 155,
-        height: 50,
-        decoration: BoxDecoration(
-          color: !widget.isOutline
-              ? !widget.hover ? Colors.white : Colors.black
-              : !widget.hover ? Colors.transparent : Colors.black,
-          border: !widget.isOutline
-              ? null
-              : Border.all(
-                  color: Colors.black,
-                  width: .2,
-                ),
-        ),
-        child: Center(
-          child: Text(
-            widget.title.toUpperCase(),
-            style: GoogleFonts.asap(
-              color: !widget.hover ? Colors.black : Colors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 15,
-              letterSpacing: 1.2,
+      child: GestureDetector(
+        onTap: widget.callback,
+        child: Container(
+          width: 155,
+          height: 50,
+          decoration: BoxDecoration(
+            color: !widget.isOutline
+                ? !widget.hover ? Colors.white : Colors.black
+                : !widget.hover ? Colors.transparent : Colors.black,
+            border: !widget.isOutline
+                ? null
+                : Border.all(
+                    color: Colors.black,
+                    width: .2,
+                  ),
+          ),
+          child: Center(
+            child: Text(
+              widget.title.toUpperCase(),
+              style: GoogleFonts.asap(
+                color: !widget.hover ? Colors.black : Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 15,
+                letterSpacing: 1.2,
+              ),
             ),
           ),
         ),
